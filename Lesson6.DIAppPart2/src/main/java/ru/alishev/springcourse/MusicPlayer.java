@@ -1,10 +1,14 @@
 package ru.alishev.springcourse;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Neil Alishev
  */
 public class MusicPlayer {
-    private Music music;
+    private List<Music> musicList = new ArrayList<>();
 
     private String name;
     private int volume;
@@ -26,17 +30,21 @@ public class MusicPlayer {
     }
 
     // IoC
-    public MusicPlayer(Music music) {
-        this.music = music;
+    public MusicPlayer(ArrayList<Music> musicList) {
+        this.musicList = musicList;
     }
 
     public MusicPlayer() {}
 
-    public void setMusic(Music music) {
-        this.music = music;
+    public void setMusic(ArrayList<Music> musicList) {
+        this.musicList = musicList;
     }
 
     public void playMusic() {
-        System.out.println("Playing: " + music.getSong());
+        System.out.print("Playing:");
+        for(Music m:musicList){
+            System.out.print(" " + m.getSong());
+        }
+        System.out.println();
     }
 }

@@ -7,16 +7,32 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--Импортируем properties-->
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
-    <bean id="musicBean"
+    <!--Создаем класс-->
+    <bean id="musicBean1"
           class="ru.alishev.springcourse.ClassicalMusic">
     </bean>
 
+    <bean id="musicBean2"
+          class="ru.alishev.springcourse.RockMusic">
+    </bean>
+
+    <!--Создаем класс и внедряем зависимости через setter-->
     <bean id="musicPlayer"
           class="ru.alishev.springcourse.MusicPlayer">
-        <property name="music" ref="musicBean"/>
 
+        <!--<property name="music" ref="musicBean"/>-->
+
+        <property name="music">
+                <list>
+                    <ref bean="musicBean1"/>
+                    <ref bean="musicBean2"/>
+                </list>
+        </property>
+
+        <!--${} чтобы обратиться к значениям из импорта-->
         <property name="name" value="${musicPlayer.name}"/>
         <property name="volume" value="${musicPlayer.volume}"/>
     </bean>
